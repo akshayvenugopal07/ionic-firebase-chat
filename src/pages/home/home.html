@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Chat
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let chat of chatList" no-lines>
+      <div class="chat-message" text-right *ngIf="chat.data.email == loggedInUser.email">
+        <div class="right-bubble">
+          <span class="msg-name">Me</span>
+          <p text-wrap>{{chat.data.chat}}</p>
+          <span class="msg-date">{{chat.data.time.seconds | date: 'short'}}</span>
+        </div>
+      </div>
+      <div class="chat-message" text-left *ngIf="chat.data.email != loggedInUser.email">
+        <div class="left-bubble">
+          <span class="msg-name">{{chat.data.username}}</span>
+          <p text-wrap>{{chat.data.chat}}</p>
+          <span class="msg-date">{{chat.data.time.seconds | date: 'short'}}</span>
+        </div>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-8>
+        <ion-input type="text" placeholder="Type a message" [(ngModel)]="message" name="message"></ion-input>
+      </ion-col>
+      <ion-col col-2 (click)="askAI()">
+        <ion-icon name="chatbubbles"></ion-icon>
+      </ion-col>
+      <ion-col col-2 (click)="sendMessage()">
+        <ion-icon name="paper-plane"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>
